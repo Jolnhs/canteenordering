@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Form</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: url('school.jpg') center/cover no-repeat fixed; /* Background image properties for the entire page */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden; /* Prevent scrolling */
+            backdrop-filter: blur(3px); /* Apply blur effect to the background image */
+        }
+
+        header {
+            background: linear-gradient(to right, #2196F3, #64B5F6); /* Blue gradient background */
+            color: white; /* White text color */
+            text-align: center;
+            width: 100%;
+            padding: 40px; /* Increased padding for a taller header */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-bottom-left-radius: 20px; /* Rounded bottom-left corner */
+            border-bottom-right-radius: 20px; /* Rounded bottom-right corner */
+            z-index: 1; /* Ensure header is on top of the blurred image */
+        }
+
+        h2 {
+            margin: 0;
+            font-size: 36px; /* Adjust the font size as needed */
+        }
+
+        .iframe-container {
+            background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background for iframe container */
+            border: none;
+            margin: 20px 0; /* Adjust the margin as needed */
+            width: 70%; /* Adjust the width as needed */
+            max-width: 800px;
+            z-index: 1; /* Ensure iframe container is on top of the blurred image */
+        }
+
+        iframe {
+            width: 100%;
+            height: 600px; /* Adjust the height as needed */
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h2>Julia Ortiz Luis National High School</h2>
+</header>
+
+<div class="iframe-container">
+    <iframe src="https://forms.gle/drMfVN9ajwCWffzv7">Loading...</iframe>
+</div>
+
+</body>
+</html>

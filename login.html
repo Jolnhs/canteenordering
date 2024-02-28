@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <style>
+    body {
+      
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-image: url('school.jpg'); /* Add your blurred background image */
+      background-size: cover;
+      background-position: center;
+      backdrop-filter: blur(5px); /* Adjust the blur intensity */
+    }
+
+    form {
+      background-color: rgba(255, 255, 255, 0.8); /* White background with opacity */
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      opacity: 0; /* Initially hidden */
+      animation: fadeIn 1s ease-out forwards; /* Fade-in animation */
+    }
+
+    #school-container {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start; /* Align items to the left */
+      margin-bottom: 20px;
+    }
+
+    #school-logo {
+      width: 160px; /* Larger logo */
+      height: 160px; /* Larger logo */
+      margin-right: 20px;
+      padding-bottom:20px ;
+      position: static;
+
+    }
+
+    h2 {
+      color: #3498db; /* Blue color for the school name */
+      margin: 0; /* Remove default margin for h2 */
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size:30px ;
+    }
+
+    input {
+      width: 100%;
+      padding: 15px;
+      margin-bottom: 20px;
+      box-sizing: border-box;
+      border: 1px solid #3498db; /* Blue border for input fields */
+      border-radius: 8px;
+      font-size: 16px;
+      text-align: center; /* Center text inside input */
+    }
+
+    button {
+      background-color: #3498db; /* Blue background color for the button */
+      color: #fff;
+      border: none;
+      padding: 18px;
+      font-size: 18px;
+      cursor: pointer;
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    /* Hover effect for the button */
+    button:hover {
+      background-color: #2980b9; /* Slightly darker blue on hover */
+    }
+
+    /* Fade-in animation keyframes */
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<form id="loginForm">
+  <div id="school-container">
+    <img src="jolnhs.png" alt="School Logo" id="school-logo">
+    <h2>Julia Ortiz Luis  National High School</h2>
+  </div>
+        
+  <label for="username"></label>
+  <input type="text" id="username" placeholder="Enter your Email" required>
+
+  <label for="password"></label>
+  <input type="password" id="password" placeholder="Enter your password" required>
+
+  <button type="button" onclick="attemptLogin()">Login</button>
+</form>
+
+<script>
+  function attemptLogin() {
+    // Hardcoded credentials (not secure, for example purposes only)
+    const validUsername = "Queen.Mendoza";
+    const validPassword = "12345678";
+
+    // Get user input
+    const usernameInput = document.getElementById('username').value;
+    const passwordInput = document.getElementById('password').value;
+
+    // Check if credentials are valid
+    if (usernameInput === validUsername && passwordInput === validPassword) {
+      // Redirect to the ordering system page
+      window.location.href = 'orderingsystem.html';
+    } else {
+      alert('Invalid username or password. Please try again.');
+    }
+  }
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

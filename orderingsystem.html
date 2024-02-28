@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+  <title>Canteen Ordering System</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      font-size: 18px;
+      position: relative;
+    }
+
+    header {
+      background: linear-gradient(to right, #4d94ff, #0066cc);
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    nav {
+      font-family: 'Roboto', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(to right, #4d94ff, #0066cc);
+      padding: 10px;
+      flex-wrap: wrap;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 20px;
+      margin: 0 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    nav a:hover {
+      background: linear-gradient(to right, #005580, #003366);
+      color: #fff;
+      transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+    }
+
+    section {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .logout-button {
+      color: #fff;
+      text-decoration: none;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left: auto;
+      margin-right: 20px;
+    }
+
+    .logout-button:hover {
+      background: #b71c1c;
+    }
+
+    .menu-item {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .menu-item:hover {
+      transform: scale(1.05);
+    }
+
+    .menu-item img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .menu-item-info {
+      padding: 20px;
+      text-align: center;
+     
+    }
+
+    .menu-item-info h3 {
+      margin: 0;
+      font-size: 20px;
+      color: #0b0a0a;
+    }
+
+    .menu-item-info p {
+     padding-top:5px ;
+      margin: 0;
+      color: #312f2f;
+      font-size: 18px;
+    }
+
+    .menu-item-info input {
+      width: 60%;
+      font-size: 16px;
+      padding: 10px;
+      box-sizing: border-box;
+      display: block;
+      margin: 15px auto;
+      border: 1px solid #ccc;
+      outline: none;
+      text-align: center;
+      border: none;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .menu-item-info button {
+      background: linear-gradient(to right, #d32f2f, #b71c1c);
+      color: #fff;
+ 
+      border: none;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 60%;
+      margin: 0 auto;
+      display: block;
+      border-radius: 5px;
+      transition: background 0.3s ease-in-out;
+    }
+
+    .menu-item-info button:hover {
+      background:rgb(54, 120, 213);
+    }
+
+    .order-summary {
+  font-weight: bold;
+  position: static;
+  right: 20px;
+  top: 150px;
+  background: white;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 261px;
+
+  overflow-y: auto;
+  right: 20px;
+  padding: auto;
+  border-radius: 8px;
+  
+}
+
+
+
+    .order-summary h2 {
+      margin-top: 0;
+      font-size: 24px;
+      color: #333;
+ 
+    }
+
+    .order-summary ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+  
+    }
+
+    .order-summary li {
+      display: flex;
+      justify-content: space-between;
+      align-items: left;
+      margin-bottom: 15px;
+    }
+
+    .order-summary .name,
+    .order-summary .quantity,
+    .order-summary .price {
+      width: 33.33%;
+  
+    }
+
+    .order-summary .quantity input {
+      width: 100%;
+ 
+      box-sizing: border-box;
+    }
+
+    .order-summary button {
+      padding-top: 100px;
+      background: linear-gradient(to right, #d32f2f, #b71c1c);
+      color: #fff;
+      border: none;
+      padding: 10px;
+      font-size: 19px;
+      cursor: pointer;
+     
+      margin-top: 10px;
+      border-radius: 5px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    }
+
+    .order-summary button:hover {
+      background: linear-gradient(to right, #b71c1c, #8c1414);
+    }
+
+    @media only screen and (max-width: 600px) {
+      nav {
+        justify-content: center;
+      }
+
+      nav a {
+        margin: 0 5px;
+      }
+
+      .logout-button {
+        margin-left: 0;
+        margin-right: 5px;
+      }
+
+      .order-summary {
+    width: 100%;
+    right: 0;
+    top: auto;
+    margin-top: 20px;
+    height: 180px; /* Set a fixed height for mobile view */
+    
+
+      }
+  
+    }
+    
+  </style>
+</head>
+
+<body>
+
+<header>
+  Food Ordering System
+</header>
+
+<nav>
+  
+ 
+  <a onclick="showCategory('all')">All</a>
+  <a onclick="showCategory('main-dish')">Foods</a>
+  <a onclick="showCategory('drinks')">Drinks</a>
+  <a onclick="showCategory('snacks')">Snacks</a>
+</div>
+<b class="logout-button" onclick="logout()">Log Out</b>
+</div>
+</nav>
+
+
+<section id="menuSection">
+  <!-- Main Dish -->
+  <div class="menu-item" data-category="main-dish">
+    <img src="LUGAW.jpg" alt="Lugaw">
+    <div class="menu-item-info">
+      <h3>Lugaw</h3>
+      <p>Price: 20 pesos</p>
+      <input type="number" id="quantityLugaw" placeholder="Quantity" min="1" value="0">
+      <button onclick="addToOrder('Lugaw', 20, 'quantityLugaw')">Add to Order</button>
+    </div>
+  </div>
+
+  <div class="menu-item" data-category="main-dish">
+    <img src="turon.jpg" alt="Turon">
+    <div class="menu-item-info">
+      <h3>Turon</h3>
+      <p>Price: 7 pesos</p>
+      <input type="number" id="quantityTuron" placeholder="Quantity" min="1" value="0">
+      <button onclick="addToOrder('Turon', 7, 'quantityTuron')">Add to Order</button>
+    </div>
+  </div>
+
+  <div class="menu-item" data-category="main-dish">
+    <img src="LUMPIA.jpg" alt="LUMPIA">
+    <div class="menu-item-info">
+      <h3>Lumpia</h3>
+      <p>Price: 7 pesos</p>
+      <input type="number" id="quantityLumpia" placeholder="Quantity" min="1" value="0">
+      <button onclick="addToOrder('Lumpia', 7, 'quantityLumpia')">Add to Order</button>
+    </div>
+  </div>
+  
+  <div class="menu-item" data-category="main-dish">
+    <img src="SPAGETTI.jpg" alt="Spaghetti">
+    <div class="menu-item-info">
+      <h3>Spaghetti</h3>
+      <p>Price: 20 pesos</p>
+      <input type="number" id="quantitySpaghetti" placeholder="Quantity" min="1" value="0">
+      <button onclick="addToOrder('Spaghetti', 20, 'quantitySpaghetti')">Add to Order</button>
+    </div>
+  </div>
+
+    <div class="menu-item" data-category="main-dish">
+      <img src="PALABOK.jpg" alt="Palabok">
+      <div class="menu-item-info">
+        <h3>Palabok</h3>
+        <p>Price: 20 pesos</p>
+        <input type="number" id="quantityPalabok" placeholder="Quantity" min="1" value="0">
+        <button onclick="addToOrder('Palabok', 20, 'quantityPalabok')">Add to Order</button>
+      </div>
+    </div>
+   
+    <div class="menu-item" data-category="main-dish">
+      <img src="SIOMAI.jpg" alt="Siomai">
+      <div class="menu-item-info">
+        <h3>Siomai</h3>
+        <p>Price: 20 pesos</p>
+        <input type="number" id="quantitySiomai" placeholder="Quantity" min="1" value="0">
+        <button onclick="addToOrder('Siomai', 20, 'quantitySiomai')">Add to Order</button>
+      </div>
+    </div>
+    <div class="menu-item" data-category="main-dish">
+      <img src="babanaque.jpg" alt="Bananaque">
+      <div class="menu-item-info">
+        <h3>Bananaque</h3>
+        <p>Price: 12 pesos</p>
+        <input type="number" id="quantitySiomai" placeholder="Quantity" min="1" value="0">
+        <button onclick="addToOrder('Bananaque', 12, 'quantitySiomai')">Add to Order</button>
+      </div>
+    </div>
+
+    <div class="menu-item" data-category="main-dish">
+      <img src="TOKWA.jpg" alt="TOKWA">
+      <div class="menu-item-info">
+        <h3>Tokwa</h3>
+        <p>Price: 20 pesos</p>
+        <input type="number" id="quantitySiomai" placeholder="Quantity" min="1" value="0">
+        <button onclick="addToOrder('Tokwa', 20, 'quantityTokwa')">Add to Order</button>
+      </div>
+    </div>
+    
+    
+
+
+
+    
+
+
+
+  </div>
+  <!-- Add more main dish items as needed -->
+
+  <!-- Drinks -->
+  <div class="menu-item" data-category="drinks">
+    <img src="water.jpg" alt="Water">
+    <div class="menu-item-info">
+      <h3>Water</h3>
+      <p>Price: 12 pesos</p>
+      <input type="number" id="quantityWater" placeholder="Quantity" min="1" value="0">
+      <button onclick="addToOrder('Water', 12, 'quantityWater')">Add to Order</button>
+    </div>
+  </div>
+
+  <div class="menu-item" data-category="drinks">
+    <img src="RC.jpg" alt="RC">
+    <div class="menu-item-info">
+      <h3>RC</h3>
+      <p>Price: 15 pesos</p>
+      <input type="number" id="quantityRC" placeholder="Quantity" min="1" value="0">
+      <button onclick="addToOrder('Rc', 15, 'quantityRC')">Add to Order</button>
+    </div>
+  </div>
+
+  <div class="menu-item" data-category="drinks">
+    <img src="Coke.jpg" alt="Coke">
+    <div class="menu-item-info">
+      <h3>Coke</h3>
+      <p>Price: 20 pesos</p>
+      <input type="number" id="quantityCoke" placeholder="Quantity" min="1" value="0">
+      <button onclick="addToOrder('Coke', 20, 'quantityCoke')">Add to Order</button>
+    </div>
+  </div>
+
+  <div class="menu-item" data-category="drinks">
+    <img src="C2.jpg" alt="Coke">
+    <div class="menu-item-info">
+      <h3>C2</h3>
+      <p>Price: 15 pesos</p>
+      <input type="number" id="quantityC2" placeholder="Quantity" min="1" value="0">
+      <button onclick="addToOrder('C2', 15, 'quantityC2')">Add to Order</button>
+    </div>
+  </div>
+  
+  
+  <div class="menu-item" data-category="drinks">
+    <img src="mountaindew.jpg" alt="Mountaindew">
+    <div class="menu-item-info">
+      <h3>Mountain Dew</h3>
+      <p>Price: 20 pesos</p>
+      <input type="number" id="quantityMountaindew" placeholder="Quantity" min="1" value="0">
+      <button onclick="addToOrder('Mountaindew', 15, 'quantityMountaindew')">Add to Order</button>
+    </div>
+  </div>
+ 
+ 
+  <div class="menu-item" data-category="drinks">
+    <img src="BJ.jpg" alt="Bukojuice">
+    <div class="menu-item-info">
+      <h3>Buko juice </h3>
+      <p>Price: 10 pesos</p>
+      <input type="number" id="quantityBukojuice" placeholder="Quantity" min="1" value="0">
+      <button onclick="addToOrder('Bukojuice', 10, 'quantityBukojuice')">Add to Order</button>
+    </div>
+  </div>
+ 
+ 
+  <div class="menu-item" data-category="drinks">
+    <img src="gulaman.jpg" alt="gulaman">
+    <div class="menu-item-info">
+      <h3>Gulaman </h3>
+      <p>Price: 10 pesos</p>
+      <input type="number" id="quantitygulaman" placeholder="Quantity" min="1" value="0">
+      <button onclick="addToOrder('Gulaman', 10, 'quantitygulaman')">Add to Order</button>
+    </div>
+  </div>
+
+
+ 
+
+
+
+
+
+  <!-- Add more drink items as needed -->
+
+  <!-- Snacks -->
+  <div class="menu-item" data-category="snacks">
+    <img src="piatos.jpg" alt="Piatos">
+    <div class="menu-item-info">
+      <h3>Piatos</h3>
+      <p>Price: 20 pesos</p>
+      <input type="number" id="quantityPiatos" placeholder="Quantity" min="1" value="0">
+      <button onclick="addToOrder('Piatos', 20, 'quantityPiatos')">Add to Order</button>
+    </div>
+  </div>
+
+  <div class="menu-item" data-category="snacks">
+    <img src="nova.jpg" alt="Nova">
+    <div class="menu-item-info">
+      <h3>Nova</h3>
+      <p>Price: 20 pesos</p>
+      <input type="number" id="quantityNova" placeholder="Quantity" min="1" value="0">
+      <button onclick="addToOrder('Nova', 20, 'quantityNova')">Add to Order</button>
+    </div>
+  </div>
+ 
+  <div class="menu-item" data-category="snacks">
+    <img src="CLOVER.jpg" alt="Clover">
+    <div class="menu-item-info">
+      <h3>Clover</h3>
+      <p>Price: 10 pesos</p>
+      <input type="number" id="quantityClover" placeholder="Quantity" min="1" value="0">
+      <button onclick="addToOrder('Clover', 10, 'quantityClover')">Add to Order</button>
+    </div>
+  </div>
+ 
+  <div class="menu-item" data-category="snacks">
+    <img src="LOADED.jpg" alt="Loaded">
+    <div class="menu-item-info">
+      <h3>Loaded</h3>
+      <p>Price: 10 pesos</p>
+      <input type="number" id="quantityLOADED" placeholder="Quantity" min="1" value="0">
+      <button onclick="addToOrder('Loaded', 10, 'quantityLOADED')">Add to Order</button>
+    </div>
+  </div>
+
+  
+  <div class="menu-item" data-category="snacks">
+    <img src="SNACKU.jpg" alt="Snacku">
+    <div class="menu-item-info">
+      <h3>Snacku</h3>
+      <p>Price: 10 pesos</p>
+      <input type="number" id="quantitySnacku" placeholder="Quantity" min="1" value="0">
+      <button onclick="addToOrder('Snacku', 10, 'quantitySnacku')">Add to Order</button>
+    </div>
+  </div>
+
+   
+  <div class="menu-item" data-category="snacks">
+    <img src="ROLLER COSTER.jpg" alt="rollercoaster">
+    <div class="menu-item-info">
+      <h3>Roller Coaster </h3>
+      <p>Price: 10 pesos</p>
+      <input type="number" id="quantityrollercoaster" placeholder="Quantity" min="1" value="0">
+      <button onclick="addToOrder('Roller\ncoaster', 10, 'quantityrollercoaster')">Add to Order</button>
+    </div>
+  </div>
+ 
+
+  
+ 
+ 
+  <div class="menu-item" data-category="snacks">
+    <img src="BENG BENG.jpg" alt="bengbeng">
+    <div class="menu-item-info">
+      <h3>Beng Beng</h3>
+      <p>Price: 10 pesos</p>
+      <input type="number" id="quantitybengbeng" placeholder="Quantity" min="1" value="0">
+      <button onclick="addToOrder('Beng\nbeng', 10, 'quantitybengbeng')">Add to Order</button>
+   
+    </div>
+  </div>
+
+ 
+  <div class="menu-item" data-category="snacks">
+    <img src="CREAM O.jpg" alt="CreamO">
+    <div class="menu-item-info">
+      <h3>CreamO</h3>
+      <p>Price: 10 pesos</p>
+      <input type="number" id="quantityCreamO" placeholder="Quantity" min="1" value="0">
+      <button onclick="addToOrder('CreamO', 10, 'quantityCreamO')">Add to Order</button>
+   
+    </div>
+  </div>
+  <div class="menu-item" data-category="snacks">
+    <img src="WHOOPIE.jpg" alt="Whoopie">
+    <div class="menu-item-info">
+      <h3>Whoopie</h3>
+      <p>Price: 12 pesos</p>
+      <input type="number" id="quantityWhoopie" placeholder="Quantity" min="1" value="0">
+      <button onclick="addToOrder('Whoopie', 12, 'quantityWhoopie')">Add to Order</button>
+   
+    </div>
+  </div>
+
+
+
+
+  
+  <div class="order-summary">
+    <h2>Order Summary</h2>
+    <ul id="orderSummaryList"></ul>
+    <p>Total: <span id="totalAmount">0.00</span> pesos</p>
+    <button onclick="submitOrder()">Place Order</button>
+  </div>
+
+
+  
+
+  <!-- Add more snack items as needed -->
+
+</section>
+
+
+
+
+
+<script>
+  let orderItems = [];
+  let currentCategory = 'all';
+
+  function addToOrder(itemName, itemPrice, quantityInputId) {
+    const quantityInput = document.getElementById(quantityInputId);
+    const existingItem = orderItems.find(item => item.name === itemName);
+
+    if (existingItem) {
+      existingItem.quantity += 1;
+      existingItem.totalPrice = existingItem.price * existingItem.quantity;
+      quantityInput.value = existingItem.quantity;
+    } else {
+      orderItems.push({ name: itemName, price: itemPrice, quantity: 1, totalPrice: itemPrice });
+      quantityInput.value = 1;
+    }
+
+    updateOrderSummary();
+  }
+
+  function updateOrderSummary() {
+    const orderSummaryList = document.getElementById('orderSummaryList');
+    const totalAmountElement = document.getElementById('totalAmount');
+
+    orderSummaryList.innerHTML = "";
+    let totalAmount = 0;
+
+    orderItems.forEach(item => {
+      const listItem = document.createElement('li');
+      listItem.innerHTML = `
+        <span class="name">${item.name}</span>
+        <span class="quantity">${item.quantity} x</span>
+        <span class="price">${item.totalPrice.toFixed(2)} pesos</span>`;
+      orderSummaryList.appendChild(listItem);
+      totalAmount += item.totalPrice;
+    });
+
+    totalAmountElement.textContent = totalAmount.toFixed(2);
+  }
+
+  function submitOrder() {
+    // Display order summary in a pop-up/modal
+    const orderSummary = generateOrderSummaryMessage();
+    alert(orderSummary);
+
+    // Reset all quantity inputs to zero
+    resetAllQuantityInputs();
+
+    // Optionally, you can clear the order items and update the UI
+    orderItems = [];
+    updateOrderSummary();
+  }
+
+  function resetAllQuantityInputs() {
+    // Get all quantity input elements and set their values to zero
+    const quantityInputs = document.querySelectorAll('.menu-item-info input[type="number"]');
+    quantityInputs.forEach(input => {
+      input.value = 0;
+    });
+  }
+
+  function generateOrderSummaryMessage() {
+    let orderSummary = "Order Summary:\n\n";
+    orderItems.forEach(item => {
+      orderSummary += `${item.quantity} x ${item.name}: ${item.totalPrice.toFixed(2)} pesos\n`;
+    });
+
+    // Fix: Use totalAmountElement.textContent instead of totalAmountElement.value
+    orderSummary += `\nTotal: ${document.getElementById('totalAmount').textContent} pesos`;
+
+    return orderSummary;
+  }
+
+  function showCategory(category) {
+    currentCategory = category;
+    const menuItems = document.querySelectorAll('.menu-item');
+
+    menuItems.forEach(item => {
+      const itemCategory = item.getAttribute('data-category');
+      if (category === 'all' || itemCategory === category) {
+        item.style.display = 'block';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+  }
+
+
+
+
+  function submitOrder() {
+  // Display order summary in a pop-up/modal
+  const orderSummary = generateOrderSummaryMessage();
+  alert(orderSummary);
+
+  // Reset all quantity inputs to zero
+  resetAllQuantityInputs();
+
+  // Optionally, you can clear the order items and update the UI
+  orderItems = [];
+  updateOrderSummary();
+
+  // Redirect to sample.html
+  window.location.href = 'sample.html';
+}
+  
+
+  function logout() {
+    // Redirect to the login page
+    window.location.href = 'login.html';
+  }
+
+  function updateOrderSummaryHeight() {
+  const orderSummary = document.querySelector('.order-summary');
+  const fixedHeight = 180; // Set a fixed height that matches your menu item height
+
+  // Set the height of the order summary to a fixed value
+  orderSummary.style.height = `${fixedHeight}px`;
+}
+
+// Call this function whenever the order items are updated
+updateOrderSummaryHeight();
+</script>
+</body>
+</html>
